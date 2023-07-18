@@ -1,12 +1,12 @@
-export const loadData = async () => {
-  const result = await fetch('../../date.json');
-
-  const data = await result.json();
-  return data;
-};
-
-export const renderDates = async () => {
-  const data = await loadData();
+export const renderDates = async (err, data) => {
+  if (err) {
+    console.warn(err, data)
+    const h2 = document.createElement('h2')
+    h2.style.color = 'red'
+    h2.textContent = err
+    //! сюда что то нужно написать про ошибку вернее ее куда то вставить
+    return
+  }
   const selects = document.querySelectorAll('.tour__select');
   const dates = data.map((item) => {
     const option = document.createElement('option');
@@ -35,8 +35,15 @@ export const renderDates = async () => {
   })
 };
 
-export const renderReserve = async () => {
-  const data = await loadData();
+export const renderReserve = async (err, data) => {
+    if (err) {
+      console.warn(err, data)
+      const h2 = document.createElement('h2')
+      h2.style.color = 'red'
+      h2.textContent = err
+      //! сюда что то нужно написать про ошибку вернее ее куда то вставить
+      return
+    }
   const selects = document.querySelectorAll('.reservation__select');
   const dates = data.map((item) => {
     const option = document.createElement('option');
