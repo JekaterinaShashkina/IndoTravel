@@ -1,10 +1,9 @@
+import {createModal} from "./modal.js";
+
 export const renderDates = async (err, data) => {
   if (err) {
     console.warn(err, data)
-    const h2 = document.createElement('h2')
-    h2.style.color = 'red'
-    h2.textContent = err
-    //! сюда что то нужно написать про ошибку вернее ее куда то вставить
+    createModal()
     return
   }
   const selects = document.querySelectorAll('.tour__select');
@@ -38,10 +37,7 @@ export const renderDates = async (err, data) => {
 export const renderReserve = async (err, data) => {
     if (err) {
       console.warn(err, data)
-      const h2 = document.createElement('h2')
-      h2.style.color = 'red'
-      h2.textContent = err
-      //! сюда что то нужно написать про ошибку вернее ее куда то вставить
+      createModal()
       return
     }
   const selects = document.querySelectorAll('.reservation__select');
