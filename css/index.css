@@ -3360,3 +3360,39 @@ p {
 				margin-bottom: 15px;
 		}
 }
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 100;
+	background-color: rgba(0, 0, 0, 0.5);
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	overflow-y: auto;
+	display: none;
+  }
+.overlay_active {
+	display: flex;
+}
+.modal{
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 30px;
+	background-color: white;
+	max-width: 980px;
+	border: 1px solid #AFAFAF;
+	border-radius: 30px;
+	padding: 60px 85px;
+	width: 100%;
+}
+.modal__btn {
+	padding: 25px 112px;
+	border-radius: 12px;
+	background-color: #FCB500;
+	color: white;
+}
