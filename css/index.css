@@ -3360,7 +3360,7 @@ p {
 				margin-bottom: 15px;
 		}
 }
-.overlay {
+/* .overlay {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -3395,4 +3395,4 @@ p {
 	border-radius: 12px;
 	background-color: #FCB500;
 	color: white;
-}
+} */

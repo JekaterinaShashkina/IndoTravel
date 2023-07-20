@@ -4,7 +4,6 @@ import { timer } from './module/timer.js';
 import './module/fly.js';
 import { renderDates, renderReserve } from './module/renderDates.js';
 import {fetchRequest, httpRequest} from './module/sendData.js';
-import {createModal, modalClose, modalOpen} from './module/modal.js';
 const URL = 'https://jsonplaceholder.typicode.com/posts'
 
 const time = document.querySelector('.hero__timer').dataset.timerDeadline;
@@ -21,39 +20,6 @@ fetchRequest(
         callback: renderReserve
     }
 )
-const form = document.querySelector('.reservation__form')
-form.addEventListener('submit', (e)=>{
-    e.preventDefault()
-
-    httpRequest(URL, {
-        method: 'POST',
-        body: {
-            dates: form.dates.value,
-            people: form.people.value,
-            name: form.name.value,
-            phone: form.phone.value
-        },
-        callback: (err, data)=>{
-            if (err) {
-                console.warn(err, data)
-            //   form.textContent = err
-              const modal = createModal()
-              modalOpen(modal)
-              modalClose(modal)
-              form.reset()
-              return
-            }
-            // form.textContent=`Заявка успешно отправлена. Номер заявки ${data.id}`
-            const modal = createModal('success')
-            modalOpen(modal)
-            modalClose(modal)
-            form.reset()
-        },
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }) 
-})
 
 const questions = document.querySelector('.footer__form')
 questions.addEventListener('submit', (e)=>{

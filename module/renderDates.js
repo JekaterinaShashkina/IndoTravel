@@ -1,9 +1,9 @@
+import {declOfNum} from "./declOfNum.js";
 import {createModal} from "./modal.js";
 
 export const renderDates = async (err, data) => {
   if (err) {
     console.warn(err, data)
-    createModal()
     return
   }
   const selects = document.querySelectorAll('.tour__select');
@@ -37,7 +37,6 @@ export const renderDates = async (err, data) => {
 export const renderReserve = async (err, data) => {
     if (err) {
       console.warn(err, data)
-      createModal()
       return
     }
   const selects = document.querySelectorAll('.reservation__select');
@@ -65,6 +64,7 @@ export const renderReserve = async (err, data) => {
           }
         }
       });
+      
   })
   const peopleReserv = document.querySelector('#reservation__people')
   const price = document.querySelector('.reservation__price')
@@ -84,18 +84,16 @@ export const renderReserve = async (err, data) => {
       }
     })
   })
+  const form = document.querySelector('.reservation__form')
+  const btn = document.querySelector('.reservation__button')
+  console.log(form);
+  form.addEventListener('click', (e) => {
+    e.preventDefault()
+    if(e.target === btn) {
+      console.log(form);
+      createModal(form)
+    }
+  })
 }
-const declOfNum = (n, titles) => {
-  return (
-    n +
-    " " +
-    titles[
-      n % 10 === 1 && n % 100 !== 11
-        ? 0
-        : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
-        ? 1
-        : 2
-    ]
-  );
-}
+
 
