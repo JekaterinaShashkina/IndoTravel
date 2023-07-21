@@ -3,8 +3,8 @@ import loadStyle from "./loadstyle.js";
 import {fetchRequest} from "./sendData.js";
 const URL = 'https://jsonplaceholder.typicode.com/posts'
 
-export const createModal = (data)=>{
-loadStyle('/css/modal.css')
+export const createModal = async (data)=>{
+await loadStyle('/css/modal.css')
     const overlay = document.createElement('div')
     overlay.classList.add('overlay', 'overlay_confirm')
         const modal = document.createElement('div')

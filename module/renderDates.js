@@ -86,11 +86,9 @@ export const renderReserve = async (err, data) => {
   })
   const form = document.querySelector('.reservation__form')
   const btn = document.querySelector('.reservation__button')
-  console.log(form);
   form.addEventListener('click', (e) => {
     e.preventDefault()
     if(e.target === btn) {
-      console.log(form);
       createModal(form)
     }
   })
