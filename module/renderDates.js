@@ -3,7 +3,9 @@ import { createModal } from './modal.js';
 const form = document.querySelector('.reservation__form');
 const reservDate = document.querySelector('.reservation__data');
 const price = document.querySelector('.reservation__price');
-
+const phone = document.querySelector('#reservation__phone');
+const telmask = new Inputmask('+7 (999)-9999-999');
+telmask.mask(phone);
 export const renderDates = async (err, data) => {
   if (err) {
     console.warn(err, data);
@@ -90,24 +92,40 @@ export const renderReserve = async (err, data) => {
   form.addEventListener('input', () => {
     form.name.value = form.name.value.replace(/[^а-яА-ЯёЁ\s]+$/i, '');
   });
-
-  form.addEventListener('input', () => {
-    form.phone.value = form.phone.value.replace(/[^+\0-9\s]+$/i, '');
-  });
-  const reg = /^([^\s]*\s){2,}[^\s]*$/i;
-
-  const btn = document.querySelector('.reservation__button');
-  form.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (e.target === btn) {
-      if (reg.test(form.name.value)) {
-        createModal(form);
-      } else {
-        const info = document.querySelector('.reservation__info');
-        const nameErr = document.createElement('p');
-        nameErr.textContent = 'Неправильно введено ФИО';
-        info.append(nameErr);
-      }
-    }
-  });
 };
+const reg = /^([^\s]*\s){2,}[^\s]*$/i;
+
+const justValidate = new JustValidate('#reservation__form');
+
+justValidate
+  .addField('#reservation__phone', [
+    { rule: 'required', errorMessage: 'Укажите Ваш телефон' },
+    {
+      validator() {
+        const tel = phone.inputmask.unmaskedvalue();
+        return !!(Number(tel) && tel.length === 10);
+      },
+      errorMessage: 'телефон не корректный',
+    },
+  ])
+  .addField('#reservation__name', [
+    { rule: 'required', errorMessage: 'Укажите Ваше имя' },
+
+    { rule: 'minLength', value: 3, errorMessage: 'Слишком короткое имя' },
+
+    {
+      rule: 'customRegexp',
+      value: reg,
+      errorMessage: 'Некорректное имя',
+    },
+  ])
+  .addField('#reservation__date', [
+    { rule: 'required', errorMessage: 'Укажите даты путешествия' },
+  ])
+  .addField('#reservation__people', [
+    { rule: 'required', errorMessage: 'Укажите количество человек' },
+  ])
+  .onSuccess((e) => {
+    e.preventDefault();
+    createModal(form);
+  });
